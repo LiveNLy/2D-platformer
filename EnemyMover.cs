@@ -1,12 +1,19 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+[RequireComponent(typeof(SpriteFliper))]
+public class EnemyMover : MonoBehaviour
 {
     [SerializeField] private Transform[] _movePoints;
     [SerializeField] private float _speed;
 
+    private SpriteFliper _fliper;
     private int _numberOfMovePoint = 0;
-    private bool flipped = true;
+    private bool _flipped = true;
+
+    private void Start()
+    {
+        _fliper = GetComponent<SpriteFliper>();
+    }
 
     private void Update()
     {
@@ -15,22 +22,15 @@ public class Enemy : MonoBehaviour
         if (transform.position == _movePoints[_numberOfMovePoint].position)
             _numberOfMovePoint = (++_numberOfMovePoint) % _movePoints.Length;
 
-        if (_numberOfMovePoint == 0 && !flipped)
+        if (_numberOfMovePoint == 0 && !_flipped)
         {
-            Flip();
+            _fliper.Flip();
+            _flipped = !_flipped;
         } 
-        else if (_numberOfMovePoint == 1 && flipped)
+        else if (_numberOfMovePoint == 1 && _flipped)
         {
-            Flip();
+            _fliper.Flip();
+            _flipped = !_flipped;
         }
-    }
-
-    private void Flip()
-    {
-        Vector3 currentScale = gameObject.transform.localScale;
-        currentScale.x *= -1;
-        gameObject.transform.localScale = currentScale;
-
-        flipped = !flipped;
     }
 }

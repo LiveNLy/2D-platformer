@@ -8,18 +8,15 @@ public class CoinIndicator : MonoBehaviour
 
     private int _numberOfTakenCoins = 0;
 
-    private void Update()
-    {
-        _text.text = "coins: " + _numberOfTakenCoins;
-    }
-
     public void CoinsCount()
     {
         _numberOfTakenCoins++;
+        _text.text = "coins: " + _numberOfTakenCoins;
     }
 
     public void CoinsCountReset()
     {
         _numberOfTakenCoins = 0;
+        _text.text = "coins: " + _numberOfTakenCoins;
     }
 }
