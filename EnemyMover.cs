@@ -1,18 +1,18 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteFliper))]
+[RequireComponent(typeof(Fliper))]
 public class EnemyMover : MonoBehaviour
 {
     [SerializeField] private Transform[] _movePoints;
     [SerializeField] private float _speed;
 
-    private SpriteFliper _fliper;
+    private Fliper _fliper;
     private int _numberOfMovePoint = 0;
     private bool _flipped = true;
 
     private void Start()
     {
-        _fliper = GetComponent<SpriteFliper>();
+        _fliper = GetComponent<Fliper>();
     }
 
     private void Update()

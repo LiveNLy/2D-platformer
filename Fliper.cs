@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpriteFliper : MonoBehaviour
+public class Fliper : MonoBehaviour
 {
     public void Flip()
     {

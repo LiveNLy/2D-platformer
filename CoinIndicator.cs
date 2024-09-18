@@ -4,19 +4,20 @@ using UnityEngine;
 public class CoinIndicator : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
-    [SerializeField] private float _updateRate;
+    [SerializeField] private Bag _bag;
 
-    private int _numberOfTakenCoins = 0;
-
-    public void CoinsCount()
+    private void OnEnable()
     {
-        _numberOfTakenCoins++;
-        _text.text = "coins: " + _numberOfTakenCoins;
+        _bag.SendInfo += ShowCoins;
     }
 
-    public void CoinsCountReset()
+    private void OnDisable()
     {
-        _numberOfTakenCoins = 0;
-        _text.text = "coins: " + _numberOfTakenCoins;
+        _bag.SendInfo -= ShowCoins;
+    }
+
+    private void ShowCoins(int coinsCount)
+    {
+        _text.text = "coins: " + coinsCount;
     }
 }

@@ -29,9 +29,20 @@ public class CoinSpawner : MonoBehaviour
         StartCoroutine(SpawnCoin(_repeatRate));
     }
 
-    public void ReleaseCoin(Coin coin)
+    private void OnEnable()
+    {
+        _coinPrefab.CoinReleasing += ReleaseCoin;
+    }
+
+    private void OnDisable()
+    {
+        _coinPrefab.CoinReleasing -= ReleaseCoin;
+    }
+
+    private void ReleaseCoin(Coin coin)
     {
         _pool.Release(coin);
+        coin.CoinReleasing -= ReleaseCoin;
     }
 
     private void GetCoin()
@@ -43,6 +54,7 @@ public class CoinSpawner : MonoBehaviour
     {
         coin.transform.position = SetRandomPosition();
         coin.gameObject.SetActive(true);
+        coin.CoinReleasing += ReleaseCoin;
     }
 
     private Vector2 SetRandomPosition()
